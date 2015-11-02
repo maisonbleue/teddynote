@@ -1,0 +1,28 @@
+<h1>Index Html</h1>
+
+<div class="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Conf</th>
+				<th>Toeic</th>
+				<th>Sql</th>
+				<th>Rseaux</th>
+				<th>Expression</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			<% @new_hash.each do | tag, elem | %>
+
+			  	<% if elem == 1 || elem >= 4 %>
+			  		<td class="success"></td>
+			  	<% else %>
+			  		<td class="danger"></td>
+			  	<% end %>
+			<% end %>
+		</tr>
+		</tbody>
+	</table>
+</div>
+

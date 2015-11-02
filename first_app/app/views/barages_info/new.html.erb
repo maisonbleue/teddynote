@@ -1,0 +1,16 @@
+<h1>Hello baragesInfo new</h1>
+
+<%= form_for :get_login, url: barages_info_new_path do |f| %>
+	<p>
+		<%= f.label :'http://epitech.eu/user/' %>
+		<%= f.text_field :login, :size => '4', :maxlength => '8' %>
+		/?format=json
+	</p>
+	<p> 
+		<%= f.submit %>
+	</p>
+<% end %>
+
+<% if @lookuprow %>
+	
+<% end %>
