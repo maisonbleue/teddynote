@@ -30,7 +30,7 @@ class BaragesInfoController < ApplicationController
 				value.each do |k, v|
 					if (k['codemodule'].include? "B-BDD") && (k['final_note'] >= 15) && (k['title'].include? "Test SQL")
 						@array << k['title']
-					elsif (k['codemodule'].include? "B-NET") && (k['final_note'] >= 15) && (k['title'].include? "Test Reseaux")
+					elsif (k['codemodule'].include? "B-NET") && (k['final_note'] >= 15) && (k['title'].include? "Exam")
 						@array << k['title']
 					elsif (k['codemodule'].include? "B-ANG") && (k['final_note'] >= 750) && (k['titlemodule'].include? "750")
 						@array << k['title']
@@ -42,7 +42,7 @@ class BaragesInfoController < ApplicationController
 	end
 
 	def getjson
-		login= "anasta_g"
+		login= "ballot_g"
 		cookies = "curl/cookie.txt"
 		url = "https://intra.epitech.eu/user/#{login}/notes/?format=json"
 		result = `curl -b #{cookies} #{url}`
