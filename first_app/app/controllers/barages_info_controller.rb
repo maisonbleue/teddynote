@@ -28,7 +28,7 @@ class BaragesInfoController < ApplicationController
 				end
 			elsif key['notes']
 				value.each do |k, v|
-					if (k['codemodule'].include? "B-BDD") && (k['final_note'] >= 15) && (k['title'].include? "Test SQL")
+					if (k['codemodule'].include? "B-BDD") && (k['final_note'] >= 15) && (k['titlemodule'].include? "SQL Individual tests")
 						@array << k['title']
 					elsif (k['codemodule'].include? "B-NET") && (k['final_note'] >= 15) && (k['title'].include? "Exam")
 						@array << k['title']
