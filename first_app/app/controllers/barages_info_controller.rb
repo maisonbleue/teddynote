@@ -24,6 +24,8 @@ class BaragesInfoController < ApplicationController
 						@array << k['title']
 					elsif (k['codemodule'].include? "G-EPI") && (k['grade'] == 'Acquis') && (k['title'].include? "Conf")
 						@array << k['title']
+					elsif (k['codemodule'].include? "B-BDD") && (k['title'].include? "SQL Individual tests") && (k['grade'] != "Echec") && (k['grade'] != "-")
+						@array << k['title']
 					end
 				end
 			elsif key['notes']
@@ -42,7 +44,7 @@ class BaragesInfoController < ApplicationController
 	end
 
 	def getjson
-		login= "ballot_g"
+		login= "vieira_e"
 		cookies = "curl/cookie.txt"
 		url = "https://intra.epitech.eu/user/#{login}/notes/?format=json"
 		result = `curl -b #{cookies} #{url}`
