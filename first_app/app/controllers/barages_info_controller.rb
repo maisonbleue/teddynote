@@ -4,13 +4,14 @@ class BaragesInfoController < ApplicationController
 		@array.each do |k|
 			if k.include? "French"
 				@new_hash["French"] += 2
-			elsif k.include? "TEPitech"
-				@new_hash["TEPitech"] = 1
+			elsif (k.include? "TEPitech") || (k.include? "E-Toeic")
+				@new_hash[k] = @new_hash.delete("TEPitech")
+				@new_hash[k] = 1;
 			elsif k.include? "SQL"
 				@new_hash["SQL"] = 1
 			elsif k.include? "Conf"
 				@new_hash["Conf"] = 1
-			else
+			else k.include? "Network individual tests"
 				@new_hash["Reseaux"] = 1
 			end
 		end
@@ -26,6 +27,8 @@ class BaragesInfoController < ApplicationController
 						@array << k['title']
 					elsif (k['codemodule'].include? "B-BDD") && (k['title'].include? "SQL Individual tests") && (k['grade'] != "Echec") && (k['grade'] != "-")
 						@array << k['title']
+					elsif (k['codemodule'].include? "B-NET") && (k['title'].include? "Network individual tests") && (k['grade'] != "Echec") && (k['grade'] != "-")
+						@array << k['title']
 					end
 				end
 			elsif key['notes']
@@ -34,8 +37,10 @@ class BaragesInfoController < ApplicationController
 						@array << k['title']
 					elsif (k['codemodule'].include? "B-NET") && (k['final_note'] >= 15) && (k['title'].include? "Exam")
 						@array << k['title']
-					elsif (k['codemodule'].include? "B-ANG") && (k['final_note'] >= 750) && (k['titlemodule'].include? "750")
-						@array << k['title']
+					elsif (k['codemodule'].include? "B-ANG") && (((k['final_note'] >= 750) && (k['titlemodule'].include? "750")) || ((k['final_note'] >= 550) && (k['titlemodule'].include? "550")) || ((k['final_note'] >= 650) && (k['titlemodule'].include? "650")))
+						if k['scolaryear'] == @yearS
+							@array << k['titlemodule']
+						end
 					end
 				end
 			end
@@ -44,7 +49,8 @@ class BaragesInfoController < ApplicationController
 	end
 
 	def getjson
-		login= "vieira_e"
+		login= "cendri_a"
+		@yearS = 2015
 		cookies = "curl/cookie.txt"
 		url = "https://intra.epitech.eu/user/#{login}/notes/?format=json"
 		result = `curl -b #{cookies} #{url}`
@@ -54,7 +60,7 @@ class BaragesInfoController < ApplicationController
 
 	def index
 		@array = []
-		@new_hash = Hash["Conf" => 0, "TEPitech" => 0, "SQL" => 0, "Reseaux" => 0, "French" => 0]
+		@new_hash = Hash["Conf" => 0, "SQL" => 0, "Reseaux" => 0, "French" => 0, "TEPitech" => 0]
 
 		getjson
 		parsejson

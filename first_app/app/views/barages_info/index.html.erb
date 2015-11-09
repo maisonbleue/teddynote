@@ -5,20 +5,19 @@
 		<thead>
 			<tr>
 				<th>Conf</th>
-				<th>Toeic</th>
 				<th>Sql</th>
 				<th>Reseau</th>
 				<th>Expression</th>
+				<th>Toeic</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 			<% @new_hash.each do | tag, elem | %>
-
 			  	<% if elem == 1 || elem >= 4 %>
-			  		<td class="success"></td>
+			  		<td class="success"><%= tag %></td>
 			  	<% else %>
-			  		<td class="danger"></td>
+			  		<td class="danger"><%= tag %></td>
 			  	<% end %>
 			<% end %>
 		</tr>
