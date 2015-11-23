@@ -21,7 +21,7 @@ class BaragesInfoController < ApplicationController
 		@data_hash.each do |key, value|
 			if key['modules']
 				value.each do |k, v|
-					if (k['codemodule'].include? "B-PRO") && (k['title'].include? "French") && (k['grade'] != "Echec") && (k['grade'] != "-")
+					if (k['codemodule'].include? "B-PRO") && (k['title'].include? "French")
 						@array << k['title']
 					elsif (k['codemodule'].include? "G-EPI") && (k['grade'] == 'Acquis') && (k['title'].include? "Conf")
 						@array << k['title']
@@ -37,7 +37,7 @@ class BaragesInfoController < ApplicationController
 						@array << k['title']
 					elsif (k['codemodule'].include? "B-NET") && (k['final_note'] >= 15) && (k['title'].include? "Exam")
 						@array << k['title']
-					elsif (k['codemodule'].include? "B-ANG") && (((k['final_note'] >= 750) && (k['titlemodule'].include? "750")) || ((k['final_note'] >= 550) && (k['titlemodule'].include? "550")) || ((k['final_note'] >= 650) && (k['titlemodule'].include? "650")))
+					elsif (k['codemodule'].include? "B-ANG") && (((k['final_note'] >= 750) && ((k['titlemodule'].include? "750") || (k['titlemodule'].include? "TEPitech"))) || ((k['final_note'] >= 550) && ((k['titlemodule'].include? "550") || (k['titlemodule'].include? "TEPitech"))) || ((k['final_note'] >= 650) && ((k['titlemodule'].include? "650") || (k['titlemodule'].include? "TEPitech"))))
 						if k['scolaryear'] == @yearS
 							@array << k['titlemodule']
 						end
@@ -49,7 +49,7 @@ class BaragesInfoController < ApplicationController
 	end
 
 	def getjson
-		login= "cendri_a"
+		login= "ballot_g"
 		@yearS = 2015
 		cookies = "curl/cookie.txt"
 		url = "https://intra.epitech.eu/user/#{login}/notes/?format=json"
